@@ -17,7 +17,6 @@ const obtenerProducto = async(req, res) =>{
   const {id} = req.params;
     try{
         const response = await executeQuery(`SELECT * FROM inventario WHERE idInventario = ${id}`);
-        res.send(response);
          const data = {
              message: `${response.length} datos encontrados`,
              data: response.length > 0 ? response[0] : null
@@ -33,7 +32,6 @@ const agregarProductos = async (req,res) =>{
     try{    
     const {nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio, fechaVencimiento} = req.body
         const response = await executeQuery(`INSERT INTO inventario (nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio, fechaVencimiento) VALUES ('${nombreProducto}','${tipoProducto}',${cantidadProducto},'${unidadMedidaProducto}',${precio},${fechaVencimiento})`)
-
         res.status(201).json({ message: 'created', id: response.insertId});
     }catch(error){
         console.log(error);
