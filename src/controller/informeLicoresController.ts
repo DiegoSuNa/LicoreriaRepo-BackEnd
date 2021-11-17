@@ -12,4 +12,15 @@ const obtenerInformesLicores = async(req,res,next) =>{
     });
 }
 
-export {obtenerInformesLicores};
+const obtenerInformesCerveza = async(req,res,next) =>{
+     await executeQuery(`SELECT * FROM inventario WHERE tipoProducto='CERVEZA'`).then(response =>{
+          const data = {
+             message: `${response.length} datos encontrados`,
+             data: response.length > 0 ? response : null
+         };
+          res.json(data);
+     }).catch(error => {
+          next(error)
+     });
+ }
+export {obtenerInformesLicores,obtenerInformesCerveza};
