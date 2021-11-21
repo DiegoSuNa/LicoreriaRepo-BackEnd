@@ -1,31 +1,14 @@
 import executeQuery from "../services/mysql.service"
 
-const obtenerProductosVenta = async(req,res,next) =>{
-    await executeQuery('SELECT * FROM inventario').then(response =>{
-        const data = {
-            message: `${response.length} datos encontrados`,
-            data: response.length > 0 ? response : null
-        };
-        res.json(data);
-    }).catch(error => {
+const ActualizarDiaVenta = (req,res,next) =>{
+    const {diaVentaProducto} = req.body;
+    const {id} = req.params;
+    executeQuery(`UPDATE ventaProducto SET diaVentaProducto = ${diaVentaProducto} WHERE idventaProducto = '${id}'`).then((response) =>{
+
+        res.json({message: response.affectedRows > 0 ? 'updated' : `No existe registro con id: ${req.params.id}`});
+    }).catch((error) => {
         next(error)
-    })
+    });
 }
 
-const generarVenta = async(req, res, next)=>{
-    
-    await executeQuery(`INSERT INTO ventaProducto (nombreVentaProducto, tipoProducto, cantidadVentaProducto,unidadMedidaProducto, ventaPrecioProducto, diaVentaProducto) SELECT nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio, fechaVencimiento FROM inventario WHERE
-    NOT EXISTS (SELECT 1 FROM ventaProducto WHERE (inventario.nombreProducto = ventaProducto.nombreVentaProducto))`).then(response =>{
-        const data = {
-            message: `${response.length} datos encontrados`,
-            data: response.length > 0 ? response : null
-    };
-    res.json(data);
-    }).catch(error => {
-    next(error)
-    })
-}
-
-
-
-export {obtenerProductosVenta, generarVenta};
+export {ActualizarDiaVenta};

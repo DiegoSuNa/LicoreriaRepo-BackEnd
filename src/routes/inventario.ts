@@ -6,7 +6,7 @@ import errorHandler from "../middleware/erros";
 const inventarioRoutes = (app) =>{
     const router = Router();
     app.use('/',router);
-    router.get('/obtenerProductos',isAdmin,obtenerProductos);
+    router.get('/obtenerProductos',obtenerProductos);
     router.get('/obtenerProducto/:id',obtenerProducto);
     router.post('/agregarProductos',agregarProductos);
     router.put('/actualizarProductos/:id',actualizarProductos);
