@@ -28,7 +28,7 @@ const obtenerProducto = async(req, res, next) =>{
 const agregarProductos = async (req,res,next) =>{
     const {nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio, fechaVencimiento,diaVentaProducto} = req.body;
     try{    
-    const {nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio, fechaVencimiento,nombreVentaProducto, cantidadVentaProducto, ventaPrecioProducto, diaVentaProducto} = req.body
+    const {nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio, fechaVencimiento} = req.body
         const response = await executeQuery(`INSERT INTO inventario (nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio, fechaVencimiento) VALUES ('${nombreProducto}','${tipoProducto}',${cantidadProducto},'${unidadMedidaProducto}',${precio},${fechaVencimiento})`);
         executeQuery(`INSERT INTO ventaProducto (nombreProducto, tipoProducto, cantidadProducto, unidadMedidaProducto, precio) VALUES ('${nombreProducto}','${tipoProducto}',${cantidadProducto},'${unidadMedidaProducto}',${precio})`);
 
